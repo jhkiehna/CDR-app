@@ -17,6 +17,9 @@ return [
 
     'default' => env('DB_CONNECTION', 'mysql'),
 
+    'test-user-email' => env('TEST_USER_EMAIL', 'test@test.com'),
+    'test-user-password' => env('TEST_USER_PASSWORD', 'password'),
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -63,11 +66,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('NEXUS_DB_HOST', '127.0.0.1'),
+            'port' => env('NEXUS_DB_PORT', '5432'),
+            'database' => env('NEXUS_DB_DATABASE', 'forge'),
+            'username' => env('NEXUS_DB_USERNAME', 'forge'),
+            'password' => env('NEXUS_DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
