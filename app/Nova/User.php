@@ -18,6 +18,13 @@ class User extends Resource
     public static $model = 'App\\User';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Stats Admin';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -32,6 +39,11 @@ class User extends Resource
     public static $search = [
         'id', 'name', 'email',
     ];
+
+    public static function label()
+    {
+        return 'Admin Users';
+    }
 
     /**
      * Get the fields displayed by the resource.

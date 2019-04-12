@@ -21,11 +21,25 @@ class NexusCall extends Resource
     public static $model = 'App\NexusCall';
 
     /**
+     * The logical group associated with the resource.
+     *
+     * @var string
+     */
+    public static $group = 'Nexus';
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
     public static $title = 'id';
+
+    /**
+     * The relationships that should be eager loaded on index queries.
+     *
+     * @var array
+     */
+    public static $with = ['user'];
 
     /**
      * The columns that should be searched.
@@ -36,6 +50,11 @@ class NexusCall extends Resource
         'id',
         'sid',
     ];
+
+    public static function label()
+    {
+        return 'Calls';
+    }
 
     /**
      * Get the fields displayed by the resource.
