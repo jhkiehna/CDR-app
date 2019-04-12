@@ -11,6 +11,8 @@ class NexusCall extends Model
 
     protected $table = 'calls';
 
+    protected $primaryKey = 'id';
+
     public function user()
     {
         return $this->belongsTo(NexusUser::class);
