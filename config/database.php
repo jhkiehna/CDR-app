@@ -17,8 +17,8 @@ return [
 
     'default' => env('DB_CONNECTION', 'mysql'),
 
-    'test-user-email' => env('TEST_USER_EMAIL', 'test@test.com'),
-    'test-user-password' => env('TEST_USER_PASSWORD', 'password'),
+    'initial-user-email' => env('INITIAL_USER_EMAIL', 'test@test.com'),
+    'initial-user-password' => env('INITIAL_USER_PASSWORD', 'password'),
 
     /*
     |--------------------------------------------------------------------------
