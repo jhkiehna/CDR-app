@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\NexusUser;
+use App\Nova\CallDuration;
 use Carbon\CarbonInterval;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class NexusCall extends Resource
 
             Text::make('Type', 'type')->readonly(true)->sortable(),
             Number::make('Duration', function () {
-                return $this->getCallDuration($this->duration);
+                return (new CallDurationFormatter($this->duration))->toString();
             }),
             DateTime::make('Made At', 'created_at')->readonly(true)->sortable(),
 
@@ -120,26 +121,5 @@ class NexusCall extends Resource
     public function actions(Request $request)
     {
         return [];
-    }
-
-    protected function getCallDuration($durationSeconds) : string
-    {
-        if ($durationSeconds >= 3600) {
-            $hours = floor(($durationSeconds / 3600));
-            $durationSeconds = $durationSeconds % 3600;
-            $minutes = floor($durationSeconds / 60);
-            $seconds = $durationSeconds % 60;
-
-            return CarbonInterval::make(CarbonInterval::hours((int) $hours)->minutes((int) $minutes)->seconds((int) $seconds))->forHumans();
-        }
-
-        if ($durationSeconds >= 60) {
-            $minutes = floor($durationSeconds / 60);
-            $seconds = $durationSeconds % 60;
-
-            return CarbonInterval::make(CarbonInterval::minutes((int) $minutes)->seconds((int) $seconds))->forHumans();
-        }
-
-        return CarbonInterval::make(CarbonInterval::seconds((int) $durationSeconds))->forHumans();
     }
 }

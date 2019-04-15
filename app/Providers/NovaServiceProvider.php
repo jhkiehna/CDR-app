@@ -6,9 +6,12 @@ use App\Nova\User;
 use Laravel\Nova\Nova;
 use App\Nova\NexusUser;
 use App\Nova\NexusCall;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
+use App\Nova\Metrics\TotalCallsValue;
+use App\Nova\Metrics\TotalInboundCallsValue;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use App\Nova\Metrics\TotalOutboundCallsValue;
+use App\Nova\Metrics\TotalAverageCallTimeValue;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -59,8 +62,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            // new Help,
-            
+            (new TotalCallsValue)->width('1/4'),
+            (new TotalInboundCallsValue)->width('1/4'),
+            (new TotalOutboundCallsValue)->width('1/4'),
+            (new TotalAverageCallTimeValue)->width('1/4'),
         ];
     }
 
