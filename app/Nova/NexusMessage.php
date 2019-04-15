@@ -5,6 +5,8 @@ namespace App\Nova;
 use App\Nova\NexusUser;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -38,13 +40,14 @@ class NexusMessage extends Resource
      */
     public static $with = ['conversation'];
 
+    public static $globallySearchable = false;
+
     /**
      * The columns that should be searched.
      *
      * @var array
      */
     public static $search = [
-        'id',
     ];
 
     public static function label()
@@ -62,6 +65,30 @@ class NexusMessage extends Resource
     {
         return [
             ID::make()->sortable(),
+
+            Text::make('Type', 'type')->sortable(),
+            Text::make('Status', function () {
+                switch ($this->type) {
+                    case "OutgoingMessage":
+                        if ($this->status == 0) {
+                            return 'Sent';
+                        }
+                        if ($this->status == 1) {
+                            return 'Delivered';
+                        }
+                        if ($this->status == 2) {
+                            return 'Failed';
+                        }
+                        break;
+                    case "IncomingMessage":
+                        if ($this->status == 0) {
+                            return 'Delivered';
+                        }
+                        break;
+                }
+            })->sortable(),
+
+            DateTime::make('Sent At', 'created_at')->readonly(true)->sortable(),
         ];
     }
 

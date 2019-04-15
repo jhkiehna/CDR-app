@@ -49,8 +49,7 @@ class NexusCall extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-        'sid',
+        'user_id',
     ];
 
     public static function label()

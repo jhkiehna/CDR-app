@@ -29,7 +29,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'email';
 
     /**
      * The columns that should be searched.
@@ -37,7 +37,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'email',
     ];
 
     public static function label()

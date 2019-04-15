@@ -41,7 +41,6 @@ class NexusUser extends Resource
      */
     public static $with = [
         'calls',
-        // 'conversations',
         'messages',
     ];
 
@@ -81,7 +80,6 @@ class NexusUser extends Resource
             })->readonly(true)->sortable(),
 
             HasMany::make('Calls', 'calls', NexusCall::class),
-            // HasMany::make('Conversations', 'conversations', NexusConversation::class),
             HasMany::make('Messages', 'messages', NexusMessage::class),
         ];
     }

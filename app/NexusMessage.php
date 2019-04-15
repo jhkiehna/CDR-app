@@ -14,6 +14,11 @@ class NexusMessage extends Model
 
     protected $primaryKey = 'id';
 
+    public function getDateFormat()
+    {
+        return 'Y-m-d H:i:s.u';
+    }
+
     public function conversation()
     {
         return $this->belongsTo(NexusConversation::class);
