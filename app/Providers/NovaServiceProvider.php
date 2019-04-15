@@ -6,6 +6,8 @@ use App\Nova\User;
 use Laravel\Nova\Nova;
 use App\Nova\NexusUser;
 use App\Nova\NexusCall;
+use App\Nova\NexusMessage;
+use App\Nova\NexusConversation;
 use Illuminate\Support\Facades\Gate;
 use App\Nova\Metrics\TotalCallsValue;
 use App\Nova\Metrics\TotalInboundCallsValue;
@@ -100,6 +102,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             NexusUser::class,
             NexusCall::class,
             User::class,
+            // NexusConversation::class,
+            NexusMessage::class,
         ]);
     }
 }

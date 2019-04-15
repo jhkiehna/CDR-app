@@ -2,37 +2,29 @@
 
 namespace App\Nova;
 
-use App\Nova\NexusCall;
+use App\Nova\NexusUser;
 use App\Nova\NexusMessage;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Text;
-use App\Nova\NexusConversation;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class NexusUser extends Resource
+class NexusConversation extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\NexusUser';
-
-    /**
-     * The logical group associated with the resource.
-     *
-     * @var string
-     */
-    public static $group = 'Nexus';
+    public static $model = 'App\NexusConversation';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'email';
+    public static $title = 'id';
 
     /**
      * The relationships that should be eager loaded on index queries.
@@ -40,8 +32,7 @@ class NexusUser extends Resource
      * @var array
      */
     public static $with = [
-        'calls',
-        // 'conversations',
+        'user',
         'messages',
     ];
 
@@ -51,15 +42,12 @@ class NexusUser extends Resource
      * @var array
      */
     public static $search = [
-        'walter_id',
-        'first_name',
-        'last_name',
-        'email',
+        'id',
     ];
 
     public static function label()
     {
-        return 'Users';
+        return 'Conversations';
     }
 
     /**
@@ -71,17 +59,9 @@ class NexusUser extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make('ID', 'id')->readonly(true)->sortable(),
-            ID::make('Walter ID', 'walter_id')->readonly(true)->sortable(),
-            ID::make('Intranet ID', 'intranet_id')->readonly(true)->sortable(),
+            ID::make()->sortable(),
 
-            Text::make('Email', 'email')->readonly(true)->sortable(),
-            Text::make('Name', function () {
-                return $this->last_name. ', ' .$this->first_name;
-            })->readonly(true)->sortable(),
-
-            HasMany::make('Calls', 'calls', NexusCall::class),
-            // HasMany::make('Conversations', 'conversations', NexusConversation::class),
+            BelongsTo::make('User', 'user', NexusUser::class),
             HasMany::make('Messages', 'messages', NexusMessage::class),
         ];
     }
