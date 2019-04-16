@@ -19,6 +19,7 @@ use App\Nova\Metrics\UserAverageCallTimeValue;
 use App\Nova\Metrics\UserMessagesValue;
 use App\Nova\Metrics\UserMessagesSentValue;
 use App\Nova\Metrics\UserMessagesReceivedValue;
+use Laravel\Nova\Fields\Number;
 
 class NexusUser extends Resource
 {
@@ -87,6 +88,13 @@ class NexusUser extends Resource
             Text::make('Name', function () {
                 return $this->last_name. ', ' .$this->first_name;
             })->readonly(true)->sortable(),
+
+            Number::make('Total Calls', function () {
+                return $this->calls->count();
+            })->sortable()->onlyOnIndex(),
+            Number::make('Total Messages', function () {
+                return $this->messages->count();
+            })->sortable()->onlyOnIndex(),
 
             HasMany::make('Calls', 'calls', NexusCall::class),
             HasMany::make('Messages', 'messages', NexusMessage::class),
