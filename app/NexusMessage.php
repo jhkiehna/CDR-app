@@ -4,7 +4,6 @@ namespace App;
 
 use App\NexusConversation;
 use Illuminate\Database\Eloquent\Model;
-use App\Nova\NexusUser;
 
 class NexusMessage extends Model
 {
@@ -14,6 +13,10 @@ class NexusMessage extends Model
 
     protected $primaryKey = 'id';
 
+    protected $hidden = [
+        'body'
+    ];
+
     public function getDateFormat()
     {
         return 'Y-m-d H:i:s.u';
@@ -22,5 +25,10 @@ class NexusMessage extends Model
     public function conversation()
     {
         return $this->belongsTo(NexusConversation::class);
+    }
+
+    public function getUser()
+    {
+        return $this->conversation->user;
     }
 }

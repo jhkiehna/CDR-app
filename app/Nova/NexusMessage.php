@@ -38,7 +38,9 @@ class NexusMessage extends Resource
      *
      * @var array
      */
-    public static $with = ['conversation'];
+    public static $with = [
+        'conversation',
+    ];
 
     public static $globallySearchable = false;
 
@@ -89,6 +91,13 @@ class NexusMessage extends Resource
             })->sortable(),
 
             DateTime::make('Sent At', 'created_at')->readonly(true)->sortable(),
+
+            Text::make('User', function () {
+                $user = $this->getUser();
+                $element = '<a href="/resources/nexus-users/'.$user->id.'" class="no-underline dim text-primary font-bold">'.$user->email.'</a>';
+
+                return $element;
+            })->asHtml(),
         ];
     }
 
