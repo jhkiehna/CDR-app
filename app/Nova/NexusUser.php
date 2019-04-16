@@ -7,9 +7,15 @@ use App\Nova\NexusMessage;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use App\Nova\NexusConversation;
 use Laravel\Nova\Fields\HasMany;
+use App\Nova\Metrics\UserCallsValue;
+use App\Nova\Metrics\TotalCallsValue;
+use App\Nova\Metrics\UserCallTimeValue;
+use App\Nova\Metrics\TotalCallTimeValue;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Metrics\TotalInboundCallsValue;
+use App\Nova\Metrics\TotalOutboundCallsValue;
+use App\Nova\Metrics\UserAverageCallTimeValue;
 
 class NexusUser extends Resource
 {
@@ -92,7 +98,16 @@ class NexusUser extends Resource
      */
     public function cards(Request $request)
     {
-        return [];
+        return [
+            (new TotalCallsValue)->width('1/2'),
+            (new TotalCallTimeValue)->width('1/2'),
+            (new TotalInboundCallsValue)->width('1/2'),
+            (new TotalOutboundCallsValue)->width('1/2'),
+
+            (new UserCallsValue)->onlyOnDetail(),
+            (new UserCallTimeValue)->onlyOnDetail(),
+            (new UserAverageCallTimeValue)->onlyOnDetail(),
+        ];
     }
 
     /**

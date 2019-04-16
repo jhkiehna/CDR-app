@@ -35,8 +35,12 @@ class CallDurationFormatter
             )->forHumans();
         }
 
-        return CarbonInterval::make(
-            CarbonInterval::seconds((int) $this->totalDurationSeconds)
-        )->forHumans();
+        if ($this->totalDurationSeconds > 0) {
+            return CarbonInterval::make(
+                CarbonInterval::seconds((int) $this->totalDurationSeconds)
+            )->forHumans();
+        }
+
+        return '0 seconds';
     }
 }

@@ -6,9 +6,9 @@ use App\NexusCall;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Value;
 
-class TotalAverageCallTimeValue extends Value
+class UserAverageCallTimeValue extends Value
 {
-    public $name = 'Average Call Duration in Seconds';
+    public $name = 'Average Call Duration in Seconds (This User)';
 
     /**
      * Calculate the value of the metric.
@@ -18,7 +18,11 @@ class TotalAverageCallTimeValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->average($request, NexusCall::class, 'duration');
+        return $this->average(
+            $request,
+            NexusCall::where('user_id', $request->resourceId),
+            'duration'
+        );
     }
 
     /**
@@ -46,7 +50,7 @@ class TotalAverageCallTimeValue extends Value
      */
     public function cacheFor()
     {
-        return now()->addMinutes(15);
+        return now()->addMinutes(5);
     }
 
     /**
@@ -56,6 +60,6 @@ class TotalAverageCallTimeValue extends Value
      */
     public function uriKey()
     {
-        return 'total-average-call-time-value';
+        return 'user-average-call-time-value';
     }
 }
