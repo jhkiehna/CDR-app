@@ -16,6 +16,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Metrics\TotalInboundCallsValue;
 use App\Nova\Metrics\TotalOutboundCallsValue;
 use App\Nova\Metrics\UserAverageCallTimeValue;
+use App\Nova\Metrics\UserMessagesValue;
+use App\Nova\Metrics\UserMessagesSentValue;
+use App\Nova\Metrics\UserMessagesReceivedValue;
 
 class NexusUser extends Resource
 {
@@ -107,6 +110,10 @@ class NexusUser extends Resource
             (new UserCallsValue)->onlyOnDetail(),
             (new UserCallTimeValue)->onlyOnDetail(),
             (new UserAverageCallTimeValue)->onlyOnDetail(),
+
+            (new UserMessagesValue)->onlyOnDetail(),
+            (new UserMessagesSentValue)->onlyOnDetail(),
+            (new UserMessagesReceivedValue)->onlyOnDetail(),
         ];
     }
 
