@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Filters\MessageType;
 
 class NexusMessage extends Resource
 {
@@ -120,7 +121,9 @@ class NexusMessage extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new MessageType,
+        ];
     }
 
     /**
