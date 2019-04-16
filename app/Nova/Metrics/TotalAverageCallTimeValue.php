@@ -18,7 +18,7 @@ class TotalAverageCallTimeValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->average($request, NexusCall::class, 'duration');
+        return $this->average($request, NexusCall::class, 'duration')->format('00:00:00');
     }
 
     /**

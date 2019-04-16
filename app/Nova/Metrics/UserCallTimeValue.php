@@ -22,7 +22,7 @@ class UserCallTimeValue extends Value
             $request,
             NexusCall::where('user_id', $request->resourceId),
             'duration'
-        );
+        )->format('00:00:00');
     }
 
     /**

@@ -80,21 +80,21 @@ class NexusUser extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make('ID', 'id')->readonly(true)->sortable(),
-            ID::make('Walter ID', 'walter_id')->readonly(true)->sortable(),
-            ID::make('Intranet ID', 'intranet_id')->readonly(true)->sortable(),
+            ID::make('ID', 'id')->sortable(),
+            ID::make('Walter ID', 'walter_id')->sortable(),
+            ID::make('Intranet ID', 'intranet_id')->sortable(),
 
-            Text::make('Email', 'email')->readonly(true)->sortable(),
+            Text::make('Email', 'email')->sortable(),
             Text::make('Name', function () {
                 return $this->last_name. ', ' .$this->first_name;
-            })->readonly(true)->sortable(),
+            })->sortable(),
 
             Number::make('Total Calls', function () {
                 return $this->calls->count();
-            })->sortable()->onlyOnIndex(),
+            })->onlyOnIndex(),
             Number::make('Total Messages', function () {
                 return $this->messages->count();
-            })->sortable()->onlyOnIndex(),
+            })->onlyOnIndex(),
 
             HasMany::make('Calls', 'calls', NexusCall::class),
             HasMany::make('Messages', 'messages', NexusMessage::class),

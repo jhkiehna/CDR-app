@@ -18,7 +18,7 @@ class TotalCallTimeValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->sum($request, NexusCall::class, 'duration');
+        return $this->sum($request, NexusCall::class, 'duration')->format('00:00:00');
     }
 
     /**

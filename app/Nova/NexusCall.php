@@ -6,6 +6,7 @@ use App\Nova\NexusUser;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use App\Nova\Filters\CallType;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -63,13 +64,13 @@ class NexusCall extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make('ID', 'id')->readonly(true)->sortable(),
+            ID::make('ID', 'id')->sortable(),
 
-            Text::make('Type', 'type')->readonly(true)->sortable(),
+            Text::make('Type', 'type')->sortable(),
             Text::make('Duration', function () {
                 return (new CallDurationFormatter($this->duration))->toString();
             }),
-            DateTime::make('Made At', 'created_at')->readonly(true)->sortable(),
+            DateTime::make('Made At', 'created_at')->sortable(),
 
             BelongsTo::make('User', 'user', NexusUser::class),
         ];
@@ -94,7 +95,9 @@ class NexusCall extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new CallType,
+        ];
     }
 
     /**
