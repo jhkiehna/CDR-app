@@ -5,9 +5,9 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class User extends Resource
 {
@@ -44,6 +44,13 @@ class User extends Resource
     public static function label()
     {
         return 'Admin Users';
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isRoot() == false) {
+            return $query->where('root', false);
+        }
     }
 
     /**
