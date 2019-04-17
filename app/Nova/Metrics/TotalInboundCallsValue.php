@@ -18,7 +18,11 @@ class TotalInboundCallsValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, NexusCall::where('type', 'IncomingCall'));
+        if ($request->user()->isRoot()) {
+            return $this->count($request, NexusCall::where('type', 'IncomingCall'));
+        }
+
+        return $this->count($request, NexusCall::whereIn('user_id', config('cj-users.ids'))->where('type', 'IncomingCall'));
     }
 
     /**

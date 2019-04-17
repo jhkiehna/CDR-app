@@ -3,6 +3,7 @@
 namespace App\Nova\Metrics;
 
 use App\NexusMessage;
+use App\NexusConversation;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Value;
 
@@ -18,7 +19,13 @@ class TotalMessagesReceivedValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, NexusMessage::where('type', 'IncomingMessage'));
+        if ($request->user()->isRoot()) {
+            return $this->count($request, NexusMessage::where('type', 'IncomingMessage'));
+        }
+
+        $conversationIds = NexusConversation::whereIn('user_id', config('cj-users.ids'))->get()->map->id;
+
+        return $this->count($request, NexusMessage::whereIn('conversation_id', $conversationIds)->where('type', 'IncomingMessage'));
     }
 
     /**

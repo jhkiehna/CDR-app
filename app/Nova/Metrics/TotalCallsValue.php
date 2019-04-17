@@ -18,7 +18,11 @@ class TotalCallsValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, NexusCall::class);
+        if ($request->user()->isRoot()) {
+            return $this->count($request, NexusCall::class);
+        }
+
+        return $this->count($request, NexusCall::whereIn('user_id', config('cj-users.ids')));
     }
 
     /**

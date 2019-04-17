@@ -18,7 +18,11 @@ class TotalOutboundCallsValue extends Value
      */
     public function calculate(Request $request)
     {
-        return $this->count($request, NexusCall::where('type', 'OutgoingCall'));
+        if ($request->user()->isRoot()) {
+            return $this->count($request, NexusCall::where('type', 'OutgoingCall'));
+        }
+
+        return $this->count($request, NexusCall::whereIn('user_id', config('cj-users.ids'))->where('type', 'OutgoingCall'));
     }
 
     /**
