@@ -17,7 +17,15 @@ class NexusUserPolicy
 
     public function view(User $user, NexusUser $nexusUser)
     {
-        return true;
+        if ($user->isRoot()) {
+            return true;
+        }
+
+        if ($user->isRoot() == false && in_array($nexusUser->id, config('cj-users.ids'))) {
+            return true;
+        }
+
+        return false;
     }
 
     public function create(User $user)

@@ -23,10 +23,8 @@ class UserPolicy
         if ($user->isRoot() == false && $resourceUser->isRoot() == false) {
             return true;
         }
-
-        if ($user->isRoot() == false && $resourceUser->isRoot() == true) {
-            return false;
-        }
+        
+        return false;
     }
 
     public function create(User $user)
@@ -44,9 +42,7 @@ class UserPolicy
             return true;
         }
 
-        if ($user->isRoot() == false && $resourceUser->isRoot() == true) {
-            return false;
-        }
+        return false;
     }
 
     public function delete(User $user, User $resourceUser)
@@ -59,9 +55,7 @@ class UserPolicy
             return true;
         }
 
-        if ($user->isRoot() == false && $resourceUser->isRoot() == true) {
-            return false;
-        }
+        return false;
     }
 
     public function restore(User $user, User $resourceUser)
@@ -74,9 +68,7 @@ class UserPolicy
             return true;
         }
 
-        if ($user->isRoot() == false && $resourceUser->isRoot() == true) {
-            return false;
-        }
+        return false;
     }
 
     public function forceDelete(User $user, User $resourceUser)

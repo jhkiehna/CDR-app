@@ -55,6 +55,13 @@ class NexusCall extends Resource
         return 'Calls';
     }
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isRoot() == false) {
+            return $query->whereIn('user_id', config('cj-users.ids'));
+        }
+    }
+
     /**
      * Get the fields displayed by the resource.
      *

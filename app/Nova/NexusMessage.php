@@ -3,13 +3,13 @@
 namespace App\Nova;
 
 use App\Nova\NexusUser;
+use App\NexusConversation;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Filters\MessageType;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class NexusMessage extends Resource
 {
@@ -56,6 +56,15 @@ class NexusMessage extends Resource
     public static function label()
     {
         return 'Messages';
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        $conversationIds = NexusConversation::whereIn('user_id', config('cj-users.ids'))->get()->map->id;
+
+        if ($request->user()->isRoot() == false) {
+            return $query->whereIn('conversation_id', $conversationIds);
+        }
     }
 
     /**

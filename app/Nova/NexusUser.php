@@ -7,19 +7,19 @@ use App\Nova\NexusMessage;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\HasMany;
 use App\Nova\Metrics\UserCallsValue;
 use App\Nova\Metrics\TotalCallsValue;
+use App\Nova\Metrics\UserMessagesValue;
 use App\Nova\Metrics\UserCallTimeValue;
 use App\Nova\Metrics\TotalCallTimeValue;
+use App\Nova\Metrics\UserMessagesSentValue;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Nova\Metrics\TotalInboundCallsValue;
 use App\Nova\Metrics\TotalOutboundCallsValue;
 use App\Nova\Metrics\UserAverageCallTimeValue;
-use App\Nova\Metrics\UserMessagesValue;
-use App\Nova\Metrics\UserMessagesSentValue;
 use App\Nova\Metrics\UserMessagesReceivedValue;
-use Laravel\Nova\Fields\Number;
 
 class NexusUser extends Resource
 {
@@ -69,6 +69,13 @@ class NexusUser extends Resource
     public static function label()
     {
         return 'Users';
+    }
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        if ($request->user()->isRoot() == false) {
+            return $query->whereIn('id', config('cj-users.ids'));
+        }
     }
 
     /**

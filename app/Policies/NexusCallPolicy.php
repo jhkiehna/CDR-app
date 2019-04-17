@@ -17,7 +17,15 @@ class NexusCallPolicy
 
     public function view(User $user, NexusCall $nexusCall)
     {
-        return true;
+        if ($user->isRoot()) {
+            return true;
+        }
+
+        if ($user->isRoot() == false && in_array($nexusCall->user_id, config('cj-users.ids'))) {
+            return true;
+        }
+
+        return false;
     }
 
     public function create(User $user)
