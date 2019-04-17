@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Boolean;
 
 class User extends Resource
 {
@@ -56,11 +57,9 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make(),
-
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
+            Boolean::make('Root User', 'root')->canSee(function ($request) {
+                return $request->user()->isRoot();
+            }),
 
             Text::make('Email')
                 ->sortable()

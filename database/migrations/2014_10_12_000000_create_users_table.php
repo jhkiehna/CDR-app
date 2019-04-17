@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('root')->default(false);
             $table->rememberToken();
 
             $table->softDeletes();
