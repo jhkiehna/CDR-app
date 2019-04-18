@@ -45,6 +45,11 @@ class UserMessagesValue extends Value
         ];
     }
 
+    protected function getCacheKey(\Laravel\Nova\Http\Requests\NovaRequest $request)
+    {
+        return parent::getCacheKey($request) . $request->resourceId;
+    }
+
     /**
      * Determine for how many minutes the metric should be cached.
      *
