@@ -69,8 +69,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             (new TotalCallsValue)->width('1/3'),
-            (new TotalInboundCallsValue)->width('1/3'),
             (new TotalOutboundCallsValue)->width('1/3'),
+            (new TotalInboundCallsValue)->width('1/3'),
 
             (new TotalAverageCallTimeValue)->width('1/2'),
             (new TotalCallTimeValue)->width('1/2'),

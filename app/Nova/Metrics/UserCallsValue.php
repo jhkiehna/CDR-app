@@ -8,7 +8,7 @@ use Laravel\Nova\Metrics\Value;
 
 class UserCallsValue extends Value
 {
-    public $name = 'Total Calls (This User)';
+    public $name = 'Total Calls';
 
     /**
      * Calculate the value of the metric.

@@ -100,7 +100,9 @@ class NexusMessage extends Resource
                 }
             })->sortable(),
 
-            DateTime::make('Sent At', 'created_at')->readonly(true)->sortable(),
+            Text::make('Message Body', 'body')->onlyOnDetail(),
+
+            DateTime::make('Sent At', 'created_at')->sortable(),
 
             Text::make('User', function () {
                 $user = $this->getUser();

@@ -9,7 +9,7 @@ use Laravel\Nova\Metrics\Value;
 
 class UserMessagesValue extends Value
 {
-    public $name = 'Total Messages (This User)';
+    public $name = 'Total Messages';
 
     /**
      * Calculate the value of the metric.

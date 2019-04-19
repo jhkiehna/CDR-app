@@ -9,6 +9,8 @@ use Laravel\Nova\Metrics\Value;
 
 class UserMessagesReceivedValue extends Value
 {
+    public $name = 'Total Received Messages';
+
     /**
      * Calculate the value of the metric.
      *

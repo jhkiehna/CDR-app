@@ -119,8 +119,8 @@ class NexusUser extends Resource
         return [
             (new TotalCallsValue)->width('1/2'),
             (new TotalCallTimeValue)->width('1/2'),
-            (new TotalInboundCallsValue)->width('1/2'),
             (new TotalOutboundCallsValue)->width('1/2'),
+            (new TotalInboundCallsValue)->width('1/2'),
 
             (new UserCallsValue)->onlyOnDetail(),
             (new UserCallTimeValue)->onlyOnDetail(),

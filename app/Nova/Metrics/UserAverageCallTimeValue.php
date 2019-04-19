@@ -8,7 +8,7 @@ use Laravel\Nova\Metrics\Value;
 
 class UserAverageCallTimeValue extends Value
 {
-    public $name = 'Average Call Duration in Seconds (This User)';
+    public $name = 'Average Call Duration';
 
     /**
      * Calculate the value of the metric.

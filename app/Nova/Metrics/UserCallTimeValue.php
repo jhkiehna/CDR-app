@@ -8,7 +8,7 @@ use Laravel\Nova\Metrics\Value;
 
 class UserCallTimeValue extends Value
 {
-    public $name = 'Total Time on Call in Seconds (This User)';
+    public $name = 'Total Time on Call';
 
     /**
      * Calculate the value of the metric.
