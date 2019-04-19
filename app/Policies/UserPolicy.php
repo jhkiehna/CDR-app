@@ -29,16 +29,16 @@ class UserPolicy
 
     public function create(User $user)
     {
-        return true;
+        if ($user->isRoot()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function update(User $user, User $resourceUser)
     {
         if ($user->isRoot()) {
-            return true;
-        }
-
-        if ($user->isRoot() == false && $resourceUser->isRoot() == false) {
             return true;
         }
 
@@ -48,10 +48,6 @@ class UserPolicy
     public function delete(User $user, User $resourceUser)
     {
         if ($user->isRoot()) {
-            return true;
-        }
-
-        if ($user->isRoot() == false && $resourceUser->isRoot() == false) {
             return true;
         }
 

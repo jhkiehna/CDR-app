@@ -49,7 +49,7 @@ class User extends Resource
     public static function indexQuery(NovaRequest $request, $query)
     {
         if ($request->user()->isRoot() == false) {
-            return $query->where('root', false);
+            return $query->where('privileged', false);
         }
     }
 
@@ -64,7 +64,7 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Boolean::make('Root User', 'root')->canSee(function ($request) {
+            Boolean::make('Privileged User', 'privileged')->canSee(function ($request) {
                 return $request->user()->isRoot();
             }),
 

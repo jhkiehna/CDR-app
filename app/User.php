@@ -29,11 +29,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'root',
+        'privileged',
     ];
 
     public function isRoot()
     {
-        return $this->root;
+        return $this->privileged;
     }
 }
