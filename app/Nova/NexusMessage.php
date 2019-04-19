@@ -100,7 +100,9 @@ class NexusMessage extends Resource
                 }
             })->sortable(),
 
-            Text::make('Message Body', 'body')->onlyOnDetail(),
+            Text::make('Message Body', 'body')->canSee(function ($request) {
+                return $request->user()->isRoot();
+            })->onlyOnDetail(),
 
             DateTime::make('Sent At', 'created_at')->sortable(),
 
