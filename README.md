@@ -10,4 +10,5 @@ Using Laravel and Nova
 - composer install
 - cp .env.example .env
 - Set up environment variables for both databases and the initial user
+- php artisan key:generate
 - php artisan migrate --seed
