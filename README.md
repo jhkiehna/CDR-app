@@ -8,6 +8,7 @@ Using Laravel and Nova
 
 - pull repo
 - composer install
-- php artisan migrate
-
-
+- cp .env.example .env
+- Set up environment variables for both databases and the initial user
+- php artisan key:generate
+- php artisan migrate --seed
