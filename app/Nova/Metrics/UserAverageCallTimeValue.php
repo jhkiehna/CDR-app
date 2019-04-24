@@ -20,7 +20,7 @@ class UserAverageCallTimeValue extends Value
     {
         return $this->average(
             $request,
-            NexusCall::where('user_id', $request->resourceId),
+            NexusCall::where('user_id', $request->resourceId)->where('duration', '>', 0),
             'duration'
         )->format('00:00:00');
     }
