@@ -19,10 +19,10 @@ class TotalAverageCallTimeValue extends Value
     public function calculate(Request $request)
     {
         if ($request->user()->isRoot()) {
-            return $this->average($request, NexusCall::class, 'duration')->format('00:00:00');
+            return $this->average($request, NexusCall::where('duration', '>', 0), 'duration')->format('00:00:00');
         }
         
-        return $this->average($request, NexusCall::whereIn('user_id', config('cj-users.ids')), 'duration')->format('00:00:00');
+        return $this->average($request, NexusCall::whereIn('user_id', config('cj-users.ids'))->where('duration', '>', 0), 'duration')->format('00:00:00');
     }
 
     /**
