@@ -55,7 +55,7 @@ class UserAverageCallTimeValue extends Value
      */
     public function cacheFor()
     {
-        return now()->addMinutes(10);
+        return now();
     }
 
     /**

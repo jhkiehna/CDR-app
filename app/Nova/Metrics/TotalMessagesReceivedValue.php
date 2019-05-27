@@ -53,7 +53,7 @@ class TotalMessagesReceivedValue extends Value
      */
     public function cacheFor()
     {
-        return now()->addMinutes(15);
+        return now();
     }
 
     /**
